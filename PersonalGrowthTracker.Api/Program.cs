@@ -12,6 +12,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+// Simple health check endpoint
+app.MapGet("/health", () => Results.Ok("OK - PersonalGrowthTracker.Api is running"));
+
 app.UseHttpsRedirection();
 
 app.Run();
