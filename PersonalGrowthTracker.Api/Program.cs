@@ -1,8 +1,13 @@
+using PersonalGrowthTracker.Api.Domain.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddResponseCaching();
+builder.Services.AddSingleton<IMoodRepository, InMemoryMoodRepository>();
 
 var app = builder.Build();
 
@@ -12,10 +17,13 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-// Simple health check endpoint
+app.UseHttpsRedirection();
+app.UseResponseCaching();
+
+// Health check endpoint
 app.MapGet("/health", () => Results.Ok("OK - PersonalGrowthTracker.Api is running"));
 
-app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
 
