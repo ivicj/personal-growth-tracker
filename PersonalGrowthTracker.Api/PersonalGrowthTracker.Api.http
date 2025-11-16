@@ -4,3 +4,21 @@
 ### Health check
 GET {{PersonalGrowthTracker_Api_HostAddress}}/health
 Accept: text/plain
+
+
+### Get all mood entries
+GET {{PersonalGrowthTracker_Api_HostAddress}}/api/mood
+Accept: application/json
+
+### Get mood by id
+GET {{PersonalGrowthTracker_Api_HostAddress}}/api/mood/2
+Accept: application/json
+
+### Create a new mood entry
+POST {{PersonalGrowthTracker_Api_HostAddress}}/api/mood
+Content-Type: application/json
+
+{
+    "mood" : 7,
+    "note" : "Feeling productive but tired."
+}
