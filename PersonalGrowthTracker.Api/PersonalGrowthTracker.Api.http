@@ -1,4 +1,6 @@
-@PersonalGrowthTracker.Api_HostAddress = http://localhost:5004
+@PersonalGrowthTracker_Api_HostAddress = https://localhost:7021
 
 
-###
+### Health check
+GET {{PersonalGrowthTracker_Api_HostAddress}}/health
+Accept: text/plain
