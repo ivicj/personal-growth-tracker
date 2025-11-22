@@ -1,0 +1,59 @@
+.app-shell {
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto 3rem;
+    padding: 2rem 2.5rem 2.75rem;
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+    box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(148, 163, 184, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+
+header {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-align: right;
+}
+
+@media (max-width: 640px) {
+    .app-shell {
+        margin: 1rem auto 2rem;
+        padding: 1.5rem 1.25rem 2rem;
+        max-width: 100%;
+        width: calc(100% - 2rem);
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+}
