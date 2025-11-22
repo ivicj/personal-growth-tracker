@@ -1,0 +1,56 @@
+<section class="mood-tracker">
+    <div class="card">
+        <div class="card-header">
+            <h2>Today's mood</h2>
+            <p class="subtitle">Quick check-in to track how you feel over time.</p>
+        </div>
+
+        <form (ngSubmit)="addMood()" #moodForm="ngForm" class="form">
+            <div class="field-group">
+                <div class="field">
+                    <label for="mood">Mood (1–10)</label>
+                    <input id="mood" type="number" name="mood" [(ngModel)]="newMood" min="1" max="10" required />
+                </div>
+
+                <div class="field">
+                    <label for="note">Note</label>
+                    <textarea id="note" name="note" [(ngModel)]="newNote" rows="2"
+                        placeholder="What influenced your mood today?"></textarea>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" [disabled]="moodForm.invalid">Save entry</button>
+            </div>
+        </form>
+
+        <div *ngIf="isLoading" class="info info-loading">Loading mood history...</div>
+        <div *ngIf="errorMessage" class="info info-error">{{ errorMessage }}</div>
+    </div>
+
+    <div class="card history-card">
+        <div class="card-header">
+            <h3>Recent moods</h3>
+            <p class="subtitle">A quick overview of your emotional trend.</p>
+        </div>
+
+        <ul *ngIf="moodEntries.length > 0; else noData" class="mood-list">
+            <li *ngFor="let entry of moodEntries" class="mood-item">
+                <div class="mood-main">
+                    <span class="mood-score">● {{ entry.mood }}</span>
+                    <span class="mood-date">{{ entry.createdAtUtc | date: 'short' }}</span>
+                </div>
+                <p *ngIf="entry.note" class="mood-note">
+                    {{ entry.note }}
+                </p>
+            </li>
+        </ul>
+
+        <ng-template #noData>
+            <p class="empty-state">
+                No mood entries yet. Start by adding how you feel today – this will become your
+                personal emotional timeline.
+            </p>
+        </ng-template>
+    </div>
+</section>
