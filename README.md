@@ -9,13 +9,7 @@ The goal of the project is to keep the architecture simple and easy to follow, w
 
 ## Preview
 
-<p align="center">
-  <img 
-    src="./docs/PersonalGrowthApp.png" 
-    alt="App Screenshot" 
-    style="max-height: 550px; width: auto;"
-  />
-</p>
+<img width="532" height="772" alt="Image" src="https://github.com/user-attachments/assets/c136e0da-815a-498c-9ad4-364f7c0fcf68" />
 
 ---
 
