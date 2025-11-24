@@ -1,13 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using PersonalGrowthTracker.Api.Infrastructure.Data;
+using PersonalGrowthTracker.Api.Infrastructure.Repositories;
 using PersonalGrowthTracker.Api.Domain.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddResponseCaching();
-builder.Services.AddSingleton<IMoodRepository, InMemoryMoodRepository>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IMoodRepository, EfMoodRepository>();
 
 var app = builder.Build();
 
@@ -21,7 +26,11 @@ app.UseHttpsRedirection();
 app.UseResponseCaching();
 
 // Health check endpoint
-app.MapGet("/health", () => Results.Ok("OK - PersonalGrowthTracker.Api is running"));
+app.MapGet("/health", (HttpContext ctx) =>
+{
+    ctx.Response.Headers.CacheControl = "no-store, no-cache, must-revalidate";
+    return Results.Ok("OK - PersonalGrowthTracker.Api is running");
+});
 
 app.MapControllers();
 
