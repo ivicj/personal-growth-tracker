@@ -9,7 +9,14 @@
             <div class="field-group">
                 <div class="field">
                     <label for="mood">Mood (1–10)</label>
-                    <input id="mood" type="number" name="mood" [(ngModel)]="newMood" min="1" max="10" required />
+                    <div class="number-wrapper">
+                        <input id="mood" type="number" name="mood" [(ngModel)]="newMood" min="1" max="10" required />
+                        <div class="spinner-buttons">
+                            <button type="button" class="spinner-up" (click)="incrementMood()">▲</button>
+                            <button type="button" class="spinner-down" (click)="decrementMood()">▼</button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="field">

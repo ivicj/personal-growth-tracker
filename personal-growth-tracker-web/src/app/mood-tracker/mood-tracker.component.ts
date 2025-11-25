@@ -33,6 +33,18 @@ export class MoodTrackerComponent implements OnInit {
     this.loadMoods();
   }
 
+  incrementMood() {
+    if (this.newMood < 10) {
+      this.newMood++;
+    }
+  }
+
+  decrementMood() {
+    if (this.newMood > 1) {
+      this.newMood--;
+    }
+  }
+
   loadMoods(): void {
     this.isLoading = true;
     this.errorMessage = '';
