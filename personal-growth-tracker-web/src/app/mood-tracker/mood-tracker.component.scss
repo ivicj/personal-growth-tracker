@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
 }
 
 /* Generic card component */
@@ -13,6 +17,8 @@
         0 12px 30px rgba(15, 23, 42, 0.8),
         0 0 0 1px rgba(148, 163, 184, 0.25);
     border: 1px solid rgba(56, 189, 248, 0.15);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .history-card {
@@ -86,6 +92,59 @@ textarea:focus {
     background: rgba(15, 23, 42, 0.98);
 }
 
+.number-wrapper {
+    display: inline-flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 180px;
+}
+
+.number-wrapper input[type="number"] {
+    flex: 1;
+}
+
+.spinner-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 0.3rem;
+}
+
+.spinner-buttons button {
+    border: none;
+    background: transparent;
+    color: #cbd5f5;
+    font-size: 0.65rem;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    height: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, transform 0.1s ease;
+}
+
+.spinner-buttons button:hover {
+    color: #e0f2fe;
+    text-shadow: 0 0 4px rgba(56, 189, 248, 0.6);
+}
+
+.spinner-buttons button:active {
+    transform: translateY(1px);
+}
+
+/* Hide the native browser number input spinners so only custom buttons are visible */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 /* Button */
 
 .actions {
@@ -153,6 +212,29 @@ button[type="submit"]:disabled {
     gap: 0.65rem;
     max-height: 260px;
     overflow-y: auto;
+}
+
+.mood-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mood-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mood-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+    border-radius: 999px;
+}
+
+.mood-list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0ea5e9, #0369a1);
+}
+
+/* Firefox */
+.mood-list {
+    scrollbar-width: thin;
+    scrollbar-color: #0ea5e9 transparent;
 }
 
 .mood-item {
