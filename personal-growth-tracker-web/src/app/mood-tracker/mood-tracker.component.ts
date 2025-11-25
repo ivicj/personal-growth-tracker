@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +19,7 @@ interface MoodEntry {
   styleUrl: './mood-tracker.component.scss'
 })
 export class MoodTrackerComponent implements OnInit {
-  private apiBaseUrl = '/api';
+  private apiBaseUrl = environment.apiBaseUrl;
 
   moodEntries: MoodEntry[] = [];
   newMood = 5;
