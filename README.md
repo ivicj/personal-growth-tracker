@@ -1,54 +1,57 @@
 # Personal Growth Tracker
 
-A small full-stack application for tracking daily mood and personal progress.  
-Built with **.NET 9 Web API**, **Angular 19**, and **SQLite**.
+A compact full-stack application for tracking daily mood and personal
+progress, built with **.NET 9 Web API**, **Angular 19**, and
+**SQLite**.\
+The project is intentionally kept focused while demonstrating clear
+architectural structure, separation of concerns, and several
+production‑grade patterns (caching, persistence, and deployment
+readiness).
 
-The goal of the project is to stay small and focused, but still show clear structure, separation of concerns, and a few practical production-style patterns (caching, persistence, and deployment).
-
----
+------------------------------------------------------------------------
 
 ## Preview
 
 <img width="450" height="734" alt="Image" src="https://github.com/user-attachments/assets/59304715-44cf-4f2d-826a-aace4b9e4040" />
 
----
+------------------------------------------------------------------------
 
 ## Features
 
 ### Backend (.NET 9 API)
 
-- Minimal, focused API surface
-- Domain layer for entities and repository abstractions
-- SQLite persistence using EF Core
-- Automatic migrations and initial data seeding on startup
-- Endpoints:
-  - `GET /api/mood` – list recent mood entries
-  - `GET /api/mood/{id}` – get a single entry
-  - `POST /api/mood` – create a new entry
-- Health endpoint: `GET /health`
-- Explicit HTTP caching on read/write operations
-- CORS enabled for browser clients
+-   Minimal and explicit API surface
+-   Domain layer with entities and repository abstractions
+-   SQLite persistence via EF Core
+-   Automatic migrations and initial data seeding
+-   Endpoints:
+    -   `GET /api/mood` -- list recent mood entries
+    -   `GET /api/mood/{id}` -- fetch a single entry
+    -   `POST /api/mood` -- create a new entry
+-   Health endpoint: `GET /health`
+-   Explicit HTTP caching for read/write operations
+-   Global CORS configuration for browser clients
 
 ### Frontend (Angular 19)
 
-- Single-page mood tracking UI
-- Form for adding daily mood (1–10) with optional note
-- Custom-styled numeric input with inline controls
-- Scrollable list of recent entries
-- Basic loading and error states
-- Local dev proxy for API calls
+-   Lightweight SPA with modular component structure
+-   Form for adding daily mood (1--10) with optional note
+-   Custom-styled numeric input with keyboard and inline controls
+-   Scrollable list of historical entries
+-   Basic handling of loading and error states
+-   Local development proxy for API integration
 
 ### Persistence
 
-- SQLite used as a lightweight relational store
-- EF Core migrations manage the schema
-- Seed data added on first run to avoid an empty UI
+-   SQLite used as a lightweight relational store
+-   EF Core migrations fully manage schema evolution
+-   Seed data applied on first run when the table is empty
 
----
+------------------------------------------------------------------------
 
-## Project structure
+## Project Structure
 
-```text
+``` text
 /PersonalGrowthTracker.Api
   /Domain
     /Entities
@@ -66,67 +69,68 @@ The goal of the project is to stay small and focused, but still show clear struc
   angular.json
 ```
 
----
+------------------------------------------------------------------------
 
-## Running locally
+## Running Locally
 
 ### 1. Backend API
 
 From the repository root:
 
-```bash
+``` bash
 dotnet run --project PersonalGrowthTracker.Api
 ```
 
 This will:
 
-- apply EF Core migrations
-- create a local SQLite database file:
+-   Apply EF Core migrations
+-   Create the local SQLite database file:
 
-```text
+``` text
 personal_growth.db
 ```
 
-The API will be available on the port shown in the console (usually `https://localhost:xxxx`).
+The API runs on the HTTPS port defined in *launchSettings.json*.
+
+------------------------------------------------------------------------
 
 ### 2. Frontend (Angular)
 
 From the repository root:
 
-```bash
+``` bash
 cd personal-growth-tracker-web
 npm install
 npm start
 ```
 
-The app will be available at:
+The application will be available at:
 
-```text
-http://localhost:4200
-```
+    http://localhost:4200
 
-Angular dev server proxies API calls to the backend via `proxy.conf.json`:
+Angular dev server proxies API calls using `proxy.conf.json`:
 
-```jsonc
+``` jsonc
 {
   "/api": {
-    "target": "https://localhost:7021", 
+    "target": "https://localhost:7021",
     "secure": false,
     "changeOrigin": true
   }
 }
 ```
 
+------------------------------------------------------------------------
 
----
+## Implementation Notes
 
-## Implementation notes
+-   Read endpoints include short-lived `Cache-Control` headers
+-   Write endpoints are marked `no-store`
+-   EF Core migrations run automatically on startup
+-   Seed data is applied only when no mood entries exist
+-   Repository implementation uses EF Core (`EfMoodRepository`)
+-   A single global CORS policy applies to all API routes
 
-- Read endpoints set short-lived `Cache-Control` headers
-- Write endpoints are marked as `no-store`
-- EF Core migrations are applied automatically on startup
-- Seed data is applied only when the mood table is empty
-- Repository implementation uses EF Core (`EfMoodRepository`)
-- CORS policy is configured once and applied globally to API routes
-
-This is intentionally a small codebase, meant to be easy to read end-to-end while still touching on real-world concerns like caching, persistence, and browser-to-API integration.
+The codebase is intentionally compact and optimized for clarity, while
+still reflecting real-world concerns such as caching, persistence, and
+API-SPA integration.
