@@ -5,6 +5,8 @@ using PersonalGrowthTracker.Api.Domain.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+const string AllowAllOriginsPolicy = "AllowAllOrigins";
+
 // Add services to the container.
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
@@ -13,6 +15,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IMoodRepository, EfMoodRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowAllOriginsPolicy, policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -23,6 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(AllowAllOriginsPolicy);
 app.UseResponseCaching();
 
 // Health check endpoint
